@@ -1,0 +1,8 @@
+"0","idx <- 20"
+"0","# NOTE: Operator "":"" precedes ""-"", hence you need to put brackets"
+"0","#       Refer: https://t.ly/60yqO"
+"0","num.elems <- prod(dim(df))"
+"0","df <- as.matrix(df)"
+"0","df[(num.elems -20): num.elems] <- 0"
+"0","df <- as.data.frame(df)"
+"0","df"

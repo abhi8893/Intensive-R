@@ -1,0 +1,10 @@
+{
+    "dialog-state" : {
+        "caseSensitive" : false,
+        "filePatterns" : [
+        ],
+        "path" : "~/main/coding/R-code/Intensive-R",
+        "query" : "voted.for",
+        "regex" : false
+    }
+}

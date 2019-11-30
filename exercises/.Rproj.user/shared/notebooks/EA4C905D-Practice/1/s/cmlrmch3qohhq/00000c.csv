@@ -1,0 +1,7 @@
+"0","legend(""topleft"", legend = c(""Control"", ""Treatment1"", ""Treatment2""),
+       col = c(""red"", ""green"", ""blue""),
+       pch = 1)
+"
+"2","Error in strwidth(legend, units = ""user"", cex = cex, font = text.font) : 
+  plot.new has not been called yet
+"

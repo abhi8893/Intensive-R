@@ -1,0 +1,8 @@
+"0","make.stats.df2 <- function(v, na.rm=F, zeroes.rm=T){"
+"0","  if (zeroes.rm){"
+"0","    v <- v[v != 0]"
+"0","  }"
+"0","  make.stats.df(v, na.rm=na.rm)"
+"0","}"
+"0","v <- c(0, 0, 1, 4, 3, 2, NA)"
+"0","make.stats.df2(v, na.rm=T, zeroes.rm=T)"

@@ -1,0 +1,4 @@
+"0","df <- as.data.frame(list(a=rep(1, 4), b=sapply(1:4, function(x) 2^x),"
+"0","                         c=sapply(1:4, function(x) 3^x)))"
+"0","df[""add.result""] <- rowSums(df) # df[a] + df[b] + df[c]"
+"0","df"

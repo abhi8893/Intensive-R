@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1573714100096.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9793F265",
+    "lastKnownWriteTime" : 1574226234,
+    "last_content_update" : 1574227503683,
+    "path" : "~/main/coding/R-code/Intensive-R/general-prob-stat/Question1/analysis1.R",
+    "project_path" : "general-prob-stat/Question1/analysis1.R",
+    "properties" : {
+        "cursorPosition" : "63,34",
+        "scrollLine" : "47",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

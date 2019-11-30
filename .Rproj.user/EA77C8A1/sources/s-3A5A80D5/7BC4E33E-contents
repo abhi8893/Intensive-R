@@ -1,0 +1,29 @@
+# scan function for reading files
+# By Default scan expects delimiter as whitespace
+
+# scans automatically as numeric type (double), default mode = double
+v <- scan("../data/artofr_data/z1.txt")
+typeof(v)
+
+# You can scan as integer
+v <- scan("../data/artofr_data/z1.txt", what = integer())
+typeof(v)
+
+scan("../data/artofr_data/z2.txt")
+
+# Since the default mode is double, it can't character types to double
+scan("../data/artofr_data/z3.txt")
+
+scan("../data/artofr_data/z3.txt", what = character())
+
+# Here there are mixed types though
+scan("../data/artofr_data/z4.txt", what = character())
+
+dtypes <- list(character(), integer(), integer(), character())
+scan("../data/artofr_data/z4.txt", what = dtypes)
+
+# read new lines separately
+scan("../data/artofr_data/z3.txt", what = "", sep = "\n")
+
+
+# TODO: Read first nlines, skip a line, read maximum data points (nmax)

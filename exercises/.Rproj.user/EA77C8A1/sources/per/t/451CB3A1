@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1569127490761.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "424316322",
+    "id" : "451CB3A1",
+    "lastKnownWriteTime" : 1569124137,
+    "last_content_update" : 1569124137,
+    "path" : "~/main/coding/R-code/Intensive-R/general-info/Writing_S3_Class.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "19,10",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,344 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={R-Practice},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{R-Practice}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+Practice:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a 100 by 100 matrix where each row should be having 100
+  elements having numbers from 101 to 200. All rows of the matrix will
+  be same.
+\end{enumerate}
+
+101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}
+200 101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}.200
+101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}.200
+\ldots{}.. \ldots{}.. \ldots{}.. \ldots{}.. 101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}200
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{101}\OperatorTok{:}\DecValTok{200}\NormalTok{, }\DataTypeTok{times =} \DecValTok{100}\NormalTok{),}\DecValTok{100}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Convert the matrix to data frame and give column names such that
+  column numbers should be in string
+\end{enumerate}
+
+``1'' ``2'' ``3''
+\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}.``100''
+101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}
+200 101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}.200
+101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}.200
+\ldots{}.. \ldots{}.. \ldots{}.. \ldots{}.. 101 102
+103\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}\ldots{}200
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(m)}
+\KeywordTok{colnames}\NormalTok{(df) <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Add a column at ``50'' having all NA in a way such that the columns
+  following 50 should be shifted accordingly.
+\end{enumerate}
+
+So the new data frame will have 101 columns and 100 rows
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{idx <-}\StringTok{ }\DecValTok{50}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{suppressWarnings}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(df[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\NormalTok{idx}\DecValTok{-1}\NormalTok{], }\OtherTok{NA}\NormalTok{, df[, idx}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(df)]))}
+\KeywordTok{colnames}\NormalTok{(df) <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(df)}
+\CommentTok{# }\AlertTok{NOTE}\CommentTok{: For warning message refer: https://t.ly/28VE9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Convert all the elements of the last 20 rows to 0 (zero)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{idx <-}\StringTok{ }\DecValTok{20}
+\CommentTok{# }\AlertTok{NOTE}\CommentTok{: Operator ":" precedes "-", hence you need to put brackets}
+\CommentTok{#       Refer: https://t.ly/60yqO}
+\NormalTok{df[, (}\KeywordTok{ncol}\NormalTok{(df)}\OperatorTok{-}\NormalTok{idx)}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(df)] <-}\StringTok{ }\DecValTok{0} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Create a function on your own that would take a vector of any number
+  of elements, compute average, variance, standard deviation, range and
+  create a dataframe having only one row but the columns should be
+  labelled as ``average'', ``standard deviation'', ``variance'',
+  ``range''
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{make.stats.df <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(v, }\DataTypeTok{na.rm=}\NormalTok{F)\{}
+\NormalTok{  my.range <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(v, }\DataTypeTok{na.rm=}\NormalTok{F)\{}
+    \KeywordTok{max}\NormalTok{(v, }\DataTypeTok{na.rm=}\NormalTok{na.rm) }\OperatorTok{-}\StringTok{ }\KeywordTok{min}\NormalTok{(v, }\DataTypeTok{na.rm=}\NormalTok{na.rm)}
+\NormalTok{  \}}
+\NormalTok{  funcs <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{average=}\NormalTok{mean, }\StringTok{`}\DataTypeTok{standard deviation}\StringTok{`}\NormalTok{=sd, }
+                \DataTypeTok{variance=}\NormalTok{var, }\DataTypeTok{range=}\NormalTok{my.range)}
+\NormalTok{  call.func <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(func, v)\{}\KeywordTok{func}\NormalTok{(v, }\DataTypeTok{na.rm=}\NormalTok{na.rm)\}}
+  
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{lapply}\NormalTok{(funcs, call.func, }\DataTypeTok{v=}\NormalTok{v), }\DataTypeTok{check.names=}\NormalTok{F))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  For the same problem above, modify your function definition such that
+  any zeroes in the vector are removed before the calculation is done.
+  Just think that the zeros are some instrument error for the recordings
+  that were done.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{make.stats.df2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(v, }\DataTypeTok{na.rm=}\NormalTok{F, }\DataTypeTok{zeroes.rm=}\NormalTok{T)\{}
+  \ControlFlowTok{if}\NormalTok{ (zeroes.rm)\{}
+\NormalTok{    v <-}\StringTok{ }\NormalTok{v[v }\OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{]}
+\NormalTok{  \}}
+  \KeywordTok{make.stats.df}\NormalTok{(v, }\DataTypeTok{na.rm=}\NormalTok{na.rm)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\item
+  Create a dataframe as
+
+  ``a'' ``b'' ``c'' 1 1 2 3 2 1 4 9 3 1 8 27 4 1 16 81 
+\end{enumerate}
+
+Add elements row-wise and insert the addition result as a column
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{a=}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{), }\DataTypeTok{b=}\KeywordTok{sapply}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) }\DecValTok{2}\OperatorTok{^}\NormalTok{x),}
+                         \DataTypeTok{c=}\KeywordTok{sapply}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) }\DecValTok{3}\OperatorTok{^}\NormalTok{x)))}
+\NormalTok{df[}\StringTok{"add.result"}\NormalTok{] <-}\StringTok{ }\KeywordTok{rowSums}\NormalTok{(df) }\CommentTok{# df[a] + df[b] + df[c]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  For the same dataframe given above, add the column wise and insert the
+  result as a row in the end
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[}\StringTok{"add.result"}\NormalTok{] <-}\StringTok{ }\OtherTok{NULL} \CommentTok{# removing add.result column}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(df, }\KeywordTok{colSums}\NormalTok{(df))}
+\KeywordTok{row.names}\NormalTok{(df)[}\KeywordTok{nrow}\NormalTok{(df)] <-}\StringTok{ "add.result"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{8}
+\tightlist
+\item
+  Create a function on your own that would take two 3-by-3 matrices and
+  check whether for that pair AB is equal to BA or not
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{commute <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(A, B)\{}
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{all}\NormalTok{(A}\OperatorTok{%*%}\NormalTok{B }\OperatorTok{==}\StringTok{ }\NormalTok{B}\OperatorTok{%*%}\NormalTok{A))\{}
+    \OtherTok{TRUE}
+\NormalTok{  \}}\ControlFlowTok{else}\NormalTok{\{}
+    \OtherTok{FALSE}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Create a function which will take a 3x3 matrix as input and will
+  return 3 vectors which are generated from the columns of the matrix.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{get.cols <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(A)\{}
+\NormalTok{  l <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(A), }\ControlFlowTok{function}\NormalTok{(i) A[, i])}
+  \KeywordTok{names}\NormalTok{(l) <-}\StringTok{ }\KeywordTok{colnames}\NormalTok{(A)}
+\NormalTok{  l}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}

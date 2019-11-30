@@ -1,0 +1,6 @@
+$`Team Name`
+[1] "Team C"
+
+$`Team Total`
+[1] 20
+

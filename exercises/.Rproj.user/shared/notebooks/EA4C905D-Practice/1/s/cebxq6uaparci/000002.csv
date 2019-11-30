@@ -1,0 +1,3 @@
+"0","# iv. Save the modified data frame as csv file"
+"0","ofile <- ""practice_output.txt"""
+"0","write.csv(res, ofile)"

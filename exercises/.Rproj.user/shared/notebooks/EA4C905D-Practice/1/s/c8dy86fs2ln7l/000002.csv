@@ -1,0 +1,3 @@
+"0","# iii. Compute the mean column wise and add as row"
+"0","res <- rbind(res, colMeans(res))"
+"0","rownames(res)[nrow(res)] <- ""colmean"""

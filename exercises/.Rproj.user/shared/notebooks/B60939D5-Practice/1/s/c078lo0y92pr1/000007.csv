@@ -1,0 +1,5 @@
+"0","idx <- 50"
+"0","df <- suppressWarnings(cbind(df[, 1:idx-1], NA, df[, idx:ncol(df)]))"
+"0","colnames(df) <- 1:101"
+"0","# NOTE: For warning message refer: https://t.ly/28VE9"
+"0","df"

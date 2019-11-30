@@ -1,0 +1,4 @@
+"0","df[""add.result""] <- NULL # removing add.result column"
+"0","df <- rbind(df, colSums(df))"
+"0","row.names(df)[nrow(df)] <- ""add.result"""
+"0","df"

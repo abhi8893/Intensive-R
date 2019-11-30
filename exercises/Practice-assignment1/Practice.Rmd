@@ -1,0 +1,148 @@
+---
+title: "R-Practice"
+author: | 
+  | Abhishek Bhatia
+  | PGDSMA ISI TEZPUR 2019/20
+  | R: Intro to packages
+date: "30th August 2019"
+output:
+  html_notebook: default
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+**1. Create a 100 by 100 matrix where each row should be having 100 elements having numbers from 101 to 200. All rows of the matrix will be same.**
+
+101 102 103........................... 200<br />
+101 102 103............................200<br />
+101 102 103............................200<br />
+.....<br />
+.....<br />
+.....<br />
+.....<br />
+101 102 103...........................200<br />
+
+```{r}
+# NOTE: vector 101:200 will get recycled to required length.
+m <- matrix(101:200,100, 100, byrow = TRUE)
+```
+
+**2. Convert the matrix to data frame and give column names such that column numbers should be in string**
+
+"1"    "2"  "3" ........................."100"<br />
+101 102 103........................... 200<br />
+101 102 103............................200<br />
+101 102 103............................200 <br />
+.....<br />
+.....<br />
+.....<br />
+.....<br />
+101 102 103...........................200<br />
+```{r}
+df <- as.data.frame(m)
+colnames(df) <- sapply(1:100, function(x) paste('"', x, '"'))
+df
+```
+**3. Add a column at "50" having all NA in a way such that the columns following 50 should be shifted accordingly.**
+
+So the new data frame will have 101 columns and 100 rows
+```{r}
+idx <- 50
+df <- suppressWarnings(cbind(df[, 1:idx-1], NA, df[, idx:ncol(df)]))
+colnames(df) <- 1:101
+# NOTE: For warning message refer: https://t.ly/28VE9
+df
+```
+**4.  Convert all the elements of the last 20 rows to 0 (zero)**
+```{r}
+idx <- 20
+# NOTE: Operator ":" precedes "-", hence you need to put brackets
+#       Refer: https://t.ly/60yqO
+num.elems <- prod(dim(df))
+df <- as.matrix(df) # Is there any other way to access 
+                    # nth element of a data.frame?
+df[(num.elems -20): num.elems] <- 0
+df <- as.data.frame(df)
+df
+```
+**5. Create a function on your own that would take a vector of any number of elements, compute average, variance, standard deviation, range and create a dataframe having only one row but the columns should be labelled as "average", "standard deviation", "variance", "range"**
+```{r}
+make.stats.df <- function(v, na.rm=F){
+  my.range <- function(v, na.rm=F){
+    max(v, na.rm=na.rm) - min(v, na.rm=na.rm)
+  }
+  funcs <- list(average=mean, `standard deviation`=sd, 
+                variance=var, range=my.range)
+  call.func <- function(func, v){func(v, na.rm=na.rm)}
+  
+  return(as.data.frame(lapply(funcs, call.func, v=v), check.names=F))
+}
+v <- c(5, 4, 2, 4, NA, 2, NA)
+make.stats.df(v, na.rm=T)
+```
+**6. For the same problem above, modify your function definition such that any zeroes in the vector are removed before the calculation is done. Just think that the zeros are some instrument error for the recordings that were done.**
+```{r}
+make.stats.df2 <- function(v, na.rm=F, zeroes.rm=T){
+  if (zeroes.rm){
+    v <- v[v != 0]
+  }
+  make.stats.df(v, na.rm=na.rm)
+}
+v <- c(0, 0, 1, 4, 3, 2, NA)
+make.stats.df2(v, na.rm=T, zeroes.rm=T)
+```
+**7. Create a dataframe as**
+
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|   | a  |  b  |  c  |
+|---|:--:|----:|----:|
+| 1 | 1  |  2  |  3  |
+| 2 | 1  |  4  |  9  |
+| 3 | 1  |  8  | 27  |
+| 4 | 1  | 16  | 81  |
+"
+cat(tabl)
+```
+
+**Add elements row-wise and insert the addition result as a column**
+```{r}
+df <- as.data.frame(list(a=rep(1, 4), b=sapply(1:4, function(x) 2^x),
+                         c=sapply(1:4, function(x) 3^x)))
+df["add.result"] <- rowSums(df) # df[a] + df[b] + df[c]
+df
+```
+**8. For the same dataframe given above, add the column wise and insert the result as a row in the end**
+```{r}
+df["add.result"] <- NULL # removing add.result column
+df <- rbind(df, colSums(df))
+row.names(df)[nrow(df)] <- "add.result"
+df
+```
+**9. Create a function on your own that would take two 3-by-3 matrices and check whether for that pair AB is equal to BA or not**
+```{r}
+commute <- function(A, B){
+  if (all(A%*%B == B%*%A)){
+    TRUE
+  } else{
+    FALSE
+  }
+}
+
+A <- matrix(1:9, 3, 3)
+commute(A, 2*A)
+commute(A, A-1)
+```
+**10.  Create a function which will take a 3x3 matrix as input and will return 3 vectors which are generated from the columns of the matrix.**
+```{r}
+get.cols <- function(A){
+  l <- lapply(1:ncol(A), function(i) A[, i])
+  names(l) <- colnames(A)
+  l
+}
+
+A <- matrix(1:9, 3, 3)
+colnames(A) <- c("a", "b", "c")
+get.cols(A)
+```

@@ -1,0 +1,6 @@
+"0","length(unique(subset(df, mpg > 18, select = cyl)$cyl))
+"
+"1","[1]"
+"1"," 3"
+"1","
+"
