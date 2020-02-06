@@ -57,12 +57,13 @@ body.fatsmry
 
 
 # CLT demonstration
-# Take a sample of 
-fat.sample <- matrix(sample(body$fat, 1e5, replace = T),
+# Take a sample of 200 observations 500 times
+# The sample mean will tend towards normal distrbn 
+# (sort of true, not rigourously appropriate to say this)
+fat.sample <- matrix(sample(body$fat, (1e5), replace = T),
                      1e5/200, 200)
 
 fat.smean <- colMeans(fat.sample)
 hist(fat.smean, prob=T)
-curve(dnorm(x, mean(fat.smean), sd(fat.smean)), 18, 22, add=T, col="red")
-
+curve(dnorm(x, mean(fat.smean), sd(fat.smean)), 18, 22, 1000, add=T, col="red")
 

@@ -1,0 +1,10 @@
+Data file (data.csv) contains the consumptions of different types of food by 25 countries.
+Overall it contains 9 features and 25 data points.
+1. Perform k-medoid algorithm for the given dataset for K=3. Report the three medoids of the final clusters formed and the corresponding country name.                            [2]
+2. Give the country names in each of the three clusters found above.           [2] 
+3. Plot J vs K curve for the dataset for k=1 to 10 using K-medoid only.        [6] 
+4. Comment on the plot and the nature of the distribution of the dataset.      [2] 
+5. Perform hierarchical clustering on the dataset and report the dendogram.    [3] 
+6. Cut the tree such that you get three clusters and compare your results with the k-medoids output with explanation.                                                       [5]
+
+[Total 20 marks]   
