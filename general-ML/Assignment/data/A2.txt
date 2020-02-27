@@ -1,0 +1,11 @@
+Assignment 2
+
+Use the data.csv file for two class two feature problem
+1373 data points 
+Seperate the first 100 data points from each of the classes (0 and 1) for testing and the remaining data points for training.
+
+1. Report the mean and scatter of both the classes. [4]
+2. Find the direction (v) which maximizes the separation of the classes using LDA. [2]
+3. Project all  training data points onto v and create your own decision rule. Write as comment in your code about the decision criterion. In the overlapping region on the projected line you can randomly predict the classes. [8]
+4. Predict the class of 200 test data points based on the criterion and report the accuracy with confusion matrix. [4]
+5. Perform KNN on the projected data points for k=5 to predict the classes of the 200 test points. Report the accuracy with confusion matrix.[2]
