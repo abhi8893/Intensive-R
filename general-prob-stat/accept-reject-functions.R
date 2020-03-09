@@ -1,42 +1,18 @@
-# Accept-Reject method to sample from a distribution
+# Accept.reject functions
 
-# Sample from a Beta(2, 4) distribution
-
-
-dbeta <- function(x, a, b){
-  c <- gamma(a+b)/(gamma(a)*gamma(b))
-  return(c * (x^(a-1)) * ((1-x)^(b-1)))
-}
-
-df <- function(x) dbeta(x, 2, 4)
-
-# Choose the proposal distribution which has the same support
-dg <- function(x) dunif(x, 0, 1)
-rg <- function (n) runif(n, 0, 1)
-
-curve(df)
-curve(dg, add=T)
-
-# Now choose a c such that [f(x)/g(x)] is maximised
-# which implies I have to minimize g(x)/f(x)
-h <- function(x) df(x)/dg(x)
-x.max <- optim(0, function (x) 1/h(x), 
-               method = "Brent", lower = 0, upper = 1)$par
-curve(h)
-abline(v=x.max, col="red")
-
-find.C <- function(df, dg){
+find.C <- function(df, dg, lower, upper){
   h <- function(x) df(x)/dg(x)
   x.max <- optim(0, function (x) 1/h(x), 
-                 method = "Brent", lower = 0, upper = 1)$par
+                 method = "Brent", 
+                 lower = lower, upper = upper)$par
   
   return(df(x.max)/dg(x.max))
 }
 
-accept.reject <- function(n, df, dg, rg){
+accept.reject <- function(n, df, dg, rg, lower, upper){
   l <- list()
   
-  c <- find.C(df, dg)
+  c <- find.C(df, dg, lower, upper)
   accept.samp <- numeric(n)
   accept.dens <- numeric(n)
   reject.samp <- numeric(n)
@@ -49,11 +25,11 @@ accept.reject <- function(n, df, dg, rg){
     rat <- df(y)/(c*dg(y))
     if (u <= rat){
       accept.samp[i] <- y
-      accept.dens[i] <- c*u
+      accept.dens[i] <- u*c*dg(y)
       i <- i + 1
     } else{
       reject.samp[i] <- y
-      reject.dens[i] <- c*u
+      reject.dens[i] <- u*c*dg(y)
     }
     
     j <- j + 1
@@ -92,7 +68,7 @@ plot.accept.reject <- function(ac, ...){
   hist(ac$accept.samp, prob=T,
        xlab = "x",
        ylab = "density",
-       main = "Rejection sample", ylim=ylim*1.1, ...)
+       main = "Rejection sample", ...)
   df <- ac$df
   curve(df, add=T, col="green")
   
@@ -113,46 +89,10 @@ plot.accept.reject <- function(ac, ...){
            "c*proposal", "target density"),
          col = c("green", "red", "blue", "black"),
          lty = 1)
-
+  
   # reset par
   suppressWarnings(
     do.call(par, def.par)
   )
   
 }
-
-
-ac <- accept.reject(1000, df, dg, rg)
-plot(ac)
-
-# Sample from gamma(3/2, 1)
-dgamma <- function(x, a, b){
-  c <- b^a/gamma(a)
-  return(c * (x^(a-1) * exp(-b*x)))
-}
-df <- function(x) dgamma(x, 3/2, 1)
-dg <- function(x) dexp(x, 1)
-rg <- function(n) rexp(n, 1)
-
-ac <- accept.reject(1e3, df, dg, rg, 0, 1000)
-plot(ac)
-hist(rsamp, prob=T, ylim=c(0, 1))
-curve(df, col='red', add=T, xlim=c(0, 10))
-
-
-# TODO: Implement the accept-reject region plot t.ly/XAb0y
-# TODO: Implement the output of accept.reject.sample as an S3 object
-#       1. class "accept.reject"
-#       2. plot method
-
-
-c.dg <- ac$`c*dg`
-plot(ac$accept.samp, ac$accept.dens, col='green', ylim=c(0, 3))
-points(ac$reject.samp, ac$reject.dens, col='red')
-curve(c.dg, col="blue", add = T)
-df <- ac$df
-curve(df, add=T)
-legend("topright",
-       c("Accepted points", "Rejected points", "c*proposal", "target density"),
-       col = c("green", "red", "blue", "black"),
-       lty = 1)
