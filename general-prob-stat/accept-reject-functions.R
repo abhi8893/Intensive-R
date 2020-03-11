@@ -9,6 +9,7 @@ find.C <- function(df, dg, lower, upper){
   return(df(x.max)/dg(x.max))
 }
 
+# TODO: Make it vectorized
 accept.reject <- function(n, df, dg, rg, lower, upper){
   l <- list()
   
@@ -79,7 +80,8 @@ plot.accept.reject <- function(ac, ...){
   
   # 2nd plot
   c.dg <- ac$`c*dg`
-  plot(ac$accept.samp, ac$accept.dens, col='green', ylim=ylim*1.5)
+  plot(ac$accept.samp, ac$accept.dens, col='green', ylim=ylim*1.5,
+       xlab="x", ylab="density")
   points(ac$reject.samp, ac$reject.dens, col='red')
   curve(c.dg, col="blue", add = T)
   df <- ac$df
@@ -90,9 +92,46 @@ plot.accept.reject <- function(ac, ...){
          col = c("green", "red", "blue", "black"),
          lty = 1)
   
-  # reset par
-  suppressWarnings(
-    do.call(par, def.par)
-  )
+  # reset par (BUG: Doesn't work)
+  # suppressWarnings(
+  #   do.call(par, def.par)
+  # )
   
+  par(mfrow=c(1, 1), cex=1)
+  
+}
+
+
+accept.reject.vectorized <- function(n, df, dg, rg, lower, upper){
+  l <- list()
+  
+  c <- find.C(df, dg, lower, upper)
+  accept.samp <- numeric(n)
+  accept.dens <- numeric(n)
+  reject.samp <- numeric(n)
+  reject.dens <- numeric(n)
+  
+  m <- n*c*2
+  y <- rg(m)
+  u <- runif(m)
+  rat <- df(y)/(c*dg(y))
+  
+  accept.status <- numeric(m)
+  accept.status[u<=rat] <- 1
+  accept.status[u>rat] <- 0
+  dens <- u*c*dg(y)
+  
+  l[["accept.samp"]] <- y[accept.status == 1]
+  l[["accept.dens"]] <- dens[accept.status == 1]
+  l[["reject.samp"]] <- y[accept.status == 0]
+  l[["reject.dens"]] <- dens[accept.status == 0]
+  l[["df"]] <- df
+  l[["dg"]] <- dg
+  l[["c*dg"]] <- function (x) c*dg(x)
+  l[["c"]] <- c
+  l[["rg"]] <- rg
+  l[["accept.rate"]] <- mean(accept.status)
+  
+  class(l) <- "accept.reject"
+  return(l)
 }
