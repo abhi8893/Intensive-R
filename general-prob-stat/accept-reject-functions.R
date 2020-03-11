@@ -1,12 +1,17 @@
 # Accept.reject functions
 
-find.C <- function(df, dg, lower, upper){
+find.C <- function(df, dg, lower, upper, par=0){
   h <- function(x) df(x)/dg(x)
-  x.max <- optim(0, function (x) 1/h(x), 
+  x.max <- optim(par, function (x) 1/h(x), 
                  method = "Brent", 
                  lower = lower, upper = upper)$par
   
   return(df(x.max)/dg(x.max))
+}
+
+plot.ratio <- function(df, dg, from, to){
+  h <- function (x) df(x)/dg(x)
+  curve(h, from, to)
 }
 
 # TODO: Make it vectorized
@@ -106,12 +111,8 @@ accept.reject.vectorized <- function(n, df, dg, rg, lower, upper){
   l <- list()
   
   c <- find.C(df, dg, lower, upper)
-  accept.samp <- numeric(n)
-  accept.dens <- numeric(n)
-  reject.samp <- numeric(n)
-  reject.dens <- numeric(n)
   
-  m <- n*c*2
+  m <- as.integer(n*(1+1/c)*1.01)
   y <- rg(m)
   u <- runif(m)
   rat <- df(y)/(c*dg(y))

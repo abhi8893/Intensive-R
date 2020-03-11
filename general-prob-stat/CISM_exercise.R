@@ -15,6 +15,12 @@ rg <- runif
 ac <- accept.reject(1000, df, dg, rg, 0, 1)
 plot(ac)
 
+
+microbenchmark::microbenchmark(
+  accept.reject(1e4, df, dg, rg, 0, 1),
+  accept.reject.vectorized(1e4, df, dg, rg, 0, 1)
+)
+
 # Q.2 
 df <- function(x){
   ifelse(x>=2 & x<= 3,
@@ -78,5 +84,7 @@ df <- function (x) dchisq(x, 5)
 dg <- function (x) dexp(x, 1)
 rg <- function (x) rexp(x, 1)
 
-ac <- accept.reject(1e3, df, dg, rg, 1, 10)
+ac <- accept.reject.vectorized(1e3, df, dg, rg, 0, 1000)
 plot(ac)
+
+# Target Poisson distribution
