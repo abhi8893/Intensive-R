@@ -106,7 +106,6 @@ plot.accept.reject <- function(ac, ...){
   
 }
 
-
 accept.reject.vectorized <- function(n, df, dg, rg, lower, upper){
   l <- list()
   
@@ -136,3 +135,4 @@ accept.reject.vectorized <- function(n, df, dg, rg, lower, upper){
   class(l) <- "accept.reject"
   return(l)
 }
+
